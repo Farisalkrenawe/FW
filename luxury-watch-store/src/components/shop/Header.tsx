@@ -63,7 +63,7 @@ export function Header() {
                 { href: "/", label: "Home" },
                 { href: "/products", label: "Collection" },
                 { href: "/about", label: "Heritage" },
-                { href: "/services", label: "Services" },
+                { href: "/shop", label: "Shop" },
                 { href: "/contact", label: "Contact" }
               ].map((item) => (
                 <Link 
@@ -80,19 +80,22 @@ export function Header() {
             {/* Right Section */}
             <div className="flex items-center space-x-4">
               {/* Search */}
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="hidden md:flex hover:bg-primary/10 hover:text-primary transition-all duration-300 relative group"
-              >
-                <Search className="h-5 w-5" />
-                <div className="absolute -inset-2 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-              </Button>
+              <Link href="/products">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hidden md:flex hover:bg-primary/10 hover:text-primary transition-all duration-300 relative group"
+                >
+                  <Search className="h-5 w-5" />
+                  <div className="absolute -inset-2 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                </Button>
+              </Link>
 
               {/* Wishlist */}
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
+                onClick={() => alert('Wishlist feature coming soon!')}
                 className="hidden md:flex hover:bg-primary/10 hover:text-primary transition-all duration-300 relative group"
               >
                 <Heart className="h-5 w-5" />
@@ -100,9 +103,10 @@ export function Header() {
               </Button>
 
               {/* Notifications */}
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
+                onClick={() => alert('No new notifications')}
                 className="hidden md:flex hover:bg-primary/10 hover:text-primary transition-all duration-300 relative group"
               >
                 <Bell className="h-5 w-5" />
@@ -128,14 +132,18 @@ export function Header() {
 
               {/* User Account */}
               {session ? (
-                <div className="hidden md:flex items-center gap-3 px-4 py-2 bg-luxury-card rounded-full border-luxury">
+                <Button
+                  variant="ghost"
+                  onClick={() => alert(`Welcome ${session.user?.name}! Profile page coming soon.`)}
+                  className="hidden md:flex items-center gap-3 px-4 py-2 bg-luxury-card rounded-full border-luxury hover:bg-luxury-dark-grey transition-colors duration-300"
+                >
                   <div className="w-8 h-8 bg-gold-gradient rounded-full flex items-center justify-center">
                     <User className="h-4 w-4 text-black" />
                   </div>
                   <span className="text-sm font-medium text-foreground">
                     {session.user?.name?.split(' ')[0]}
                   </span>
-                </div>
+                </Button>
               ) : (
                 <Link href="/auth/signin" className="hidden md:block">
                   <Button className="btn-luxury-outline px-6">
@@ -176,7 +184,7 @@ export function Header() {
                   { href: "/", label: "Home", icon: Crown },
                   { href: "/products", label: "Collection", icon: Diamond },
                   { href: "/about", label: "Heritage", icon: Crown },
-                  { href: "/services", label: "Services", icon: Diamond },
+                  { href: "/shop", label: "Shop", icon: Diamond },
                   { href: "/contact", label: "Contact", icon: Crown }
                 ].map((item) => (
                   <Link 
