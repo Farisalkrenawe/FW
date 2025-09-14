@@ -47,13 +47,13 @@ export function Header() {
         <div className="container mx-auto px-4">
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="font-luxury text-2xl font-bold text-gold-gradient hover:scale-105 transition-transform duration-300"
             >
               <div className="flex items-center gap-2">
                 <Crown className="w-8 h-8 text-primary" />
-                <span>LUXURY</span>
+                <span>F&W</span>
               </div>
             </Link>
 

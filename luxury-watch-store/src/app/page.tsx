@@ -5,80 +5,25 @@ import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Watch, 
-  Shield, 
-  Award, 
-  Clock, 
-  Star, 
+import {
+  Watch,
+  Shield,
+  Award,
+  Clock,
+  Star,
   ArrowRight,
   Crown,
-  Diamond,
   Gem,
   Sparkles,
-  TrendingUp,
   CheckCircle,
-  Globe,
-  Users,
   Timer,
-  Zap
+  Globe
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { Header } from "@/components/shop/Header";
 import { useEffect, useState } from "react";
 
-// Animation hook
-const useInView = () => {
-  const [isInView, setIsInView] = useState(false);
-  const [element, setElement] = useState<Element | null>(null);
-
-  useEffect(() => {
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [element]);
-
-  return [setElement, isInView] as const;
-};
-
-// Animated counter component
-const AnimatedCounter = ({ end, duration = 2000 }: { end: number; duration?: number }) => {
-  const [count, setCount] = useState(0);
-  const [ref, inView] = useInView();
-
-  useEffect(() => {
-    if (!inView) return;
-
-    let startTime: number;
-    const startValue = 0;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(startValue + (end - startValue) * easeOutCubic));
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [inView, end, duration]);
-
-  return <span ref={ref}>{count.toLocaleString()}</span>;
-};
 
 export default function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -150,24 +95,6 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Luxury stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {[
-                { icon: Globe, label: "Countries Served", value: 50 },
-                { icon: Users, label: "Satisfied Clients", value: 10000 },
-                { icon: Crown, label: "Luxury Brands", value: 25 },
-                { icon: CheckCircle, label: "Expert Reviews", value: 99 }
-              ].map((stat, index) => (
-                <div key={index} className="text-center group">
-                  <stat.icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                  <div className="text-3xl font-bold text-foreground mb-1">
-                    <AnimatedCounter end={stat.value} />
-                    {index === 1 ? "+" : index === 3 ? "%" : "+"}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -347,32 +274,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-20 bg-luxury-card relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <Diamond className="w-16 h-16 text-primary mx-auto mb-6" />
-            <h2 className="font-luxury text-4xl md:text-5xl font-light mb-6">
-              Stay <span className="text-gold-gradient font-bold">Connected</span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Be the first to discover new arrivals, exclusive events, and investment opportunities.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Enter your email address" 
-                className="flex-1 px-6 py-4 bg-luxury-dark-grey border border-luxury-medium-grey rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button className="btn-luxury px-8 py-4">
-                <Zap className="w-5 h-5 mr-2" />
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-luxury-black border-t border-luxury-medium-grey py-16">
